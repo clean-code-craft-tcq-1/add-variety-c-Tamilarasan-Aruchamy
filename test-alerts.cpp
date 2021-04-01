@@ -5,5 +5,5 @@
 
 TEST_CASE("infers the breach according to limits") {
   BatteryCharacter batteryChar={PASSIVE_COOLING,"Bosch"};
-  REQUIRE(checkAndAlert(TO_EMAIL,batteryChar,55) == TOO_LOW);
+  REQUIRE(checkAndAlert(TO_EMAIL,batteryChar,-5) == TOO_LOW);
 }
