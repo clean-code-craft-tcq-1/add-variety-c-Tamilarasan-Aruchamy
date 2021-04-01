@@ -45,10 +45,9 @@ void sendToController(BreachType breachType);
 void sendToEmail(BreachType breachType);
 
 
+static const BreachLimitConfig BreachLimitByCoolingType[Max_CoolingType]={[PASSIVE_COOLING]={0,35},[HI_ACTIVE_COOLING]={0,45},[MED_ACTIVE_COOLING]={0,40}};
+static const AlertTargetConfig alertTarget[Max_AlertTarget]={[TO_CONTROLLER]={&sendToController},[TO_EMAIL]={&sendToEmail}};
 
-const BreachLimitConfig BreachLimitByCoolingType[Max_CoolingType]={[PASSIVE_COOLING]={0,35},[HI_ACTIVE_COOLING]={0,45},[MED_ACTIVE_COOLING]={0,40}};
-AlertTargetConfig alertTarget[Max_AlertTarget]={[TO_CONTROLLER]={&sendToController},[TO_EMAIL]={&sendToEmail}};
-
-ConsoleMgsConfig MailContent[Max_BreachType]={{"The temperature is normal"},{"The temperature is to low"},{"The temperature is too high"}};
+static const ConsoleMgsConfig MailContent[Max_BreachType]={{"The temperature is normal"},{"The temperature is to low"},{"The temperature is too high"}};
 
 
