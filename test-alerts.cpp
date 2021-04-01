@@ -4,5 +4,6 @@
 #include "typewise-alert.h"
 
 TEST_CASE("infers the breach according to limits") {
-  REQUIRE(inferBreach(12, 20, 30) == TOO_LOW);
+  BatteryCharacter batteryChar={PASSIVE_COOLING,"Bosch"};
+  REQUIRE(checkAndAlert(TO_EMAIL,batteryChar,55) == TOO_LOW);
 }
