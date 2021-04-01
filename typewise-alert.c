@@ -15,10 +15,11 @@ BreachType inferBreach(double value, BreachLimitConfig breachLimit)
 
 
 
-void checkAndAlert(AlertTarget alertTargetInput, BatteryCharacter batteryChar, double temperatureInC) 
+BreachType checkAndAlert(AlertTarget alertTargetInput, BatteryCharacter batteryChar, double temperatureInC) 
 {
 BreachType breachType = inferBreach(temperatureInC,BreachLimitByCoolingType[batteryChar.coolingType]);
 alertTarget[alertTargetInput].sendTo(breachType);
+return breachType;
 }
 
 
