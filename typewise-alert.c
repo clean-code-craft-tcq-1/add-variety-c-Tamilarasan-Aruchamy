@@ -5,8 +5,7 @@
 
 BreachType inferBreach(double value, BreachLimitConfig breachLimit);
 BreachType checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
-void sendToController(BreachType breachType);
-void sendToEmail(BreachType breachType);
+
 
 BreachType inferBreach(double value, BreachLimitConfig breachLimit) 
 {
