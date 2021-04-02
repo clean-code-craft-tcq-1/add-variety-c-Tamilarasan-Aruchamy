@@ -43,7 +43,7 @@ void sendToController(BreachType breachType);
 void sendToEmail(BreachType breachType);
 
 
-static const BreachLimitConfig BreachLimitForCoolingType[Max_CoolingType]={\ /* Index 0 - TOO_LOW Limit, 1 - TOO_HIGH Limit */
+static const BreachLimitConfig BreachLimitForCoolingType[Max_CoolingType]={ /* Index 0 - TOO_LOW Limit, 1 - TOO_HIGH Limit */ \
 									[PASSIVE_COOLING]={0,35},\
 									[HI_ACTIVE_COOLING]={0,45},\
 									[MED_ACTIVE_COOLING]={0,40}};
