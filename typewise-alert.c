@@ -43,3 +43,8 @@ void sendToEmail(BreachType breachType)
     printf("%s\n",&MailContent[breachType]);
 
 }
+
+void sendToConsole(BreachType breachType) 
+{	
+  printf("%s\n",&ConsoleContent[breachType]);
+}
