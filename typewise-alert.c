@@ -22,29 +22,31 @@ BreachType inferBreach(double value, BreachLimitConfig breachLimit)
 
 BreachType checkAndAlert(AlertTarget alertTargetInput, BatteryCharacter batteryChar, double temperatureInC) 
 {
-BreachType breachType = inferBreach(temperatureInC,BreachLimitForCoolingType[batteryChar.coolingType]);
-alertTarget[alertTargetInput].sendTo(breachType);
-return breachType;
+BreachType breachTypeRet = inferBreach(temperatureInC,BreachLimitForCoolingType[batteryChar.coolingType]);
+AlertTarget alertTargetRet = alertTarget[alertTargetInput].sendTo(breachTypeRet);
+return ((breachTypeRet+1)*(alertTargetRet+1));
 }
 
 
 
-void sendToController(BreachType breachType) 
+AlertTarget sendToController(BreachType breachType) 
 {	
   const unsigned short header = 0xfeed;
   printf("%x : %x\n", header, breachType);
+  return TO_CONTROLLER;
 }
 
 
-void sendToEmail(BreachType breachType) 
+AlertTarget sendToEmail(BreachType breachType) 
 {
   const char* recepient = "a.b@c.com";
-      printf("To: %s\n", recepient);
-    printf("%s\n",&MailContent[breachType]);
-
+  printf("To: %s\n", recepient);
+  printf("%s\n",&MailContent[breachType]);
+  return TO_EMAIL;
 }
 
-void sendToConsole(BreachType breachType) 
+AlertTarget sendToConsole(BreachType breachType) 
 {	
   printf("%s\n",&ConsoleContent[breachType]);
+  return TO_CONSOLE;
 }
