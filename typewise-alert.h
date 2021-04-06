@@ -3,6 +3,7 @@
 typedef enum {
   TO_CONTROLLER,
   TO_EMAIL,
+  TO_CONSOLE,
   Max_AlertTarget
 } AlertTarget;
 
@@ -41,18 +42,23 @@ typedef struct {
 
 void sendToController(BreachType breachType);
 void sendToEmail(BreachType breachType);
-
+void sendToConsole(BreachType breachType);
 
 static const BreachLimitConfig BreachLimitForCoolingType[Max_CoolingType]={ /* Index 0 - TOO_LOW Limit, 1 - TOO_HIGH Limit */ \
 									[PASSIVE_COOLING]={0,35},\
 									[HI_ACTIVE_COOLING]={0,45},\
 									[MED_ACTIVE_COOLING]={0,40}};
 
-static const AlertTargetConfig alertTarget[Max_AlertTarget]={[TO_CONTROLLER]={&sendToController},[TO_EMAIL]={&sendToEmail}};
+static const AlertTargetConfig alertTarget[Max_AlertTarget]={	[TO_CONTROLLER]={&sendToController},\
+								[TO_EMAIL]={&sendToEmail},\
+								[TO_CONSOLE]={&sendToConsole}};
 
 static const ConsoleMgsConfig MailContent[Max_BreachType]={ /* Alert mail when temperature is abnormal */ \
 							{"The temperature is normal"},\
 							{"The temperature is to low"},\
 							{"The temperature is too high"}};
 
-
+static const ConsoleMgsConfig ConsoleContent[Max_BreachType]={ /* Alert through console when temperature is abnormal */ \
+							{"The temperature is normal"},\
+							{"The temperature is to low"},\
+							{"The temperature is too high"}};
