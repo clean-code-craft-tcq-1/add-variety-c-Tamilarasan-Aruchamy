@@ -22,7 +22,7 @@ typedef enum {
 } BreachType;
 
 typedef struct {
-  void (*sendTo)(BreachType);
+  AlertTarget (*sendTo)(BreachType);
 } AlertTargetConfig;
 
 typedef struct {
@@ -49,7 +49,7 @@ static const BreachLimitConfig BreachLimitForCoolingType[Max_CoolingType]={ /* I
 									[HI_ACTIVE_COOLING]={0,45},\
 									[MED_ACTIVE_COOLING]={0,40}};
 
-static const AlertTargetConfig alertTarget[Max_AlertTarget]={   [TO_CONTROLLER]={&sendToController},\
+static const AlertTargetConfig alertTarget[Max_AlertTarget]={	[TO_CONTROLLER]={&sendToController},\
 								[TO_EMAIL]={&sendToEmail},\
 								[TO_CONSOLE]={&sendToConsole}};
 
