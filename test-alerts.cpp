@@ -12,10 +12,10 @@ TEST_CASE("infers the breach according to PASSIVE_COOLING and send to CONTROLLER
 
 TEST_CASE("infers the breach according to HI_ACTIVE_COOLING and send to EMAIL") {
   BatteryCharacter batteryChar={HI_ACTIVE_COOLING,"Bosch"};
-  REQUIRE(checkAndAlert(TO_EMAIL,batteryChar,50) == ((TOO_HIGH+1)*(TO_CONTROLLER+1)));
+  REQUIRE(checkAndAlert(TO_EMAIL,batteryChar,50) == ((TOO_HIGH+1)*(TO_EMAIL+1)));
 }
 
 TEST_CASE("infers the breach according to MED_ACTIVE_COOLING and send to CONSOLE") {
   BatteryCharacter batteryChar={MED_ACTIVE_COOLING,"Bosch"};
-  REQUIRE(checkAndAlert(TO_CONSOLE,batteryChar,20) == ((NORMAL+1)*(TO_CONTROLLER+1)));
+  REQUIRE(checkAndAlert(TO_CONSOLE,batteryChar,20) == ((NORMAL+1)*(TO_CONSOLE+1)));
 }
