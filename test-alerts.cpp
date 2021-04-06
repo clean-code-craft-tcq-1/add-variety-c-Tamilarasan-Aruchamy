@@ -23,5 +23,5 @@ TEST_CASE("infers the breach(TOO_HIGH) according to HI_ACTIVE_COOLING and send t
 
 TEST_CASE("infers the breach(NORMAL) according to MED_ACTIVE_COOLING and send to CONSOLE") {
   BatteryCharacter batteryChar={MED_ACTIVE_COOLING,"Bosch"};
-  REQUIRE(checkAndAlert(TO_CONSOLE,batteryChar,20) == expectedResult(NORMAL,TO_CONSOLE+1));
+  REQUIRE(checkAndAlert(TO_CONSOLE,batteryChar,20) == expectedResult(NORMAL,TO_CONSOLE));
 }
