@@ -4,7 +4,7 @@
 
 
 BreachType inferBreach(double value, BreachLimitConfig breachLimit);
-BreachType checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
+int checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
 
 
 BreachType inferBreach(double value, BreachLimitConfig breachLimit) 
@@ -20,7 +20,7 @@ BreachType inferBreach(double value, BreachLimitConfig breachLimit)
 
 
 
-BreachType checkAndAlert(AlertTarget alertTargetInput, BatteryCharacter batteryChar, double temperatureInC) 
+int checkAndAlert(AlertTarget alertTargetInput, BatteryCharacter batteryChar, double temperatureInC) 
 {
 BreachType breachTypeRet = inferBreach(temperatureInC,BreachLimitForCoolingType[batteryChar.coolingType]);
 AlertTarget alertTargetRet = alertTarget[alertTargetInput].sendTo(breachTypeRet);
