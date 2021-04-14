@@ -2,11 +2,11 @@
 #include <stddef.h>
 
 unsigned short Test_Controller_header=0;
-BreachType Test_Controller_breachType=0;
+int Test_Controller_breachType=0;
 int Func_CallCount_Controller=0;
 
 char* Test_Mail_recepient=NULL;
-ConsoleMgsConfig* Test_Mail_MailContent=NULL;
+char* Test_Mail_MailContent=NULL;
 int Func_CallCount_Mail=0;
 
 char* Test_Console_ConsoleContent=NULL;
@@ -64,7 +64,7 @@ char* ReadRecepient()
 }
 
 
-char* ReadHeader()
+unsigned short ReadHeader()
 {	
 	unsigned short header = 0xfeed;
 	return header;
