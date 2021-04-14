@@ -12,10 +12,8 @@ int expectedResult(BreachType breachType,AlertTarget alertTarget)
 }
 
 TEST_CASE("infers the breach(TOO_LOW) according to PASSIVE_COOLING and send to CONTROLLER") {
-	int a=9;
   BatteryCharacter batteryChar={PASSIVE_COOLING,"Bosch"};
   REQUIRE(checkAndAlert(TO_CONTROLLER,batteryChar,-5) == expectedResult(TOO_LOW,TO_CONTROLLER));
-  REQUIRE(a==8);
 }
 
 TEST_CASE("infers the breach(TOO_HIGH) according to HI_ACTIVE_COOLING and send to EMAIL") {
