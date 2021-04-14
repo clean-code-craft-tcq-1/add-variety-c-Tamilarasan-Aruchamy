@@ -1,8 +1,8 @@
 #include "typewise-alert.h"
 #include <stddef.h>
 
-unsigned short Test_Controller_header=0;
-int Test_Controller_breachType=0;
+unsigned short Test_Controller_header=NULL;
+int Test_Controller_breachType=NULL;
 int Func_CallCount_Controller=0;
 
 char* Test_Mail_recepient=NULL;
