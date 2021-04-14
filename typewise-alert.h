@@ -62,3 +62,4 @@ static const ConsoleMgsConfig ConsoleContent[Max_BreachType]={ /* Alert through 
 							{"The temperature is normal"},\
 							{"The temperature is to low"},\
 							{"The temperature is too high"}};
+
