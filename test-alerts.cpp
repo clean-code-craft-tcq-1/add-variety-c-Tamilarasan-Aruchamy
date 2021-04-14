@@ -3,7 +3,8 @@
 #include "test/catch.hpp"
 #include "typewise-alert.h"
 #include "TestDoublesHeader.h"
-#include <stddef.h>
+#include<stddef.h>
+#include<string.h>
 
 extern BreachType checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
 
@@ -88,8 +89,8 @@ TEST_CASE("infers the breach(TOO_LOW) according to PASSIVE_COOLING and send TO_E
   REQUIRE(BreachTypeActual == TOO_LOW); 
   REQUIRE(Test_Controller_header == NULL);
   REQUIRE(Test_Controller_breachType == NULL);
-  REQUIRE(*Test_Mail_recepient == "a.b@c.com");
-  REQUIRE(*Test_Mail_MailContent == "The temperature is to low");
+  REQUIRE(strcmp(Test_Mail_recepient,"a.b@c.com")==0);
+  REQUIRE(strcmp(Test_Mail_MailContent,"The temperature is too high")==0);
   REQUIRE(Test_Console_ConsoleContent == NULL);  
   REQUIRE(Func_CallCount_Controller == 0);
   REQUIRE(Func_CallCount_Mail == 1);
@@ -109,8 +110,8 @@ TEST_CASE("infers the breach(NORMAL) according to HI_ACTIVE_COOLING and send TO_
   REQUIRE(BreachTypeActual == NORMAL); 
   REQUIRE(Test_Controller_header == NULL);
   REQUIRE(Test_Controller_breachType == NULL);
-  REQUIRE(*Test_Mail_recepient == "a.b@c.com");
-  REQUIRE(*Test_Mail_MailContent == "The temperature is normal");
+  REQUIRE(strcmp(Test_Mail_recepient,"a.b@c.com")==0);
+  REQUIRE(strcmp(Test_Mail_MailContent,"The temperature is too high")==0);
   REQUIRE(Test_Console_ConsoleContent == NULL);  
   REQUIRE(Func_CallCount_Controller == 0);
   REQUIRE(Func_CallCount_Mail == 1);
@@ -130,8 +131,8 @@ TEST_CASE("infers the breach(TOO_HIGH) according to MED_ACTIVE_COOLING and send 
   REQUIRE(BreachTypeActual == TOO_HIGH); 
   REQUIRE(Test_Controller_header == NULL);
   REQUIRE(Test_Controller_breachType == NULL);
-  REQUIRE(*Test_Mail_recepient == "a.b@c.com");
-  REQUIRE(*Test_Mail_MailContent == "The temperature is too high");
+  REQUIRE(strcmp(Test_Mail_recepient,"a.b@c.com")==0);
+  REQUIRE(strcmp(Test_Mail_MailContent,"The temperature is too high")==0);
   REQUIRE(Test_Console_ConsoleContent == NULL);  
   REQUIRE(Func_CallCount_Controller == 0);
   REQUIRE(Func_CallCount_Mail == 1);
