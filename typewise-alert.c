@@ -42,7 +42,7 @@ AlertTarget sendToController(BreachType breachType)
 AlertTarget sendToEmail(BreachType breachType) 
 {
  // const char* recepient = "a.b@c.com";
-  const char* recepient = ReadRecepient();
+  char* recepient = ReadRecepient();
  // printf("To: %s\n", recepient);
  // printf("%s\n",&MailContent[breachType]);
   Mail(recepient,&MailContent[breachType]);
