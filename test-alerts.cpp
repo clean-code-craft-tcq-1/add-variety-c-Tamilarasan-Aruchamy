@@ -90,7 +90,7 @@ TEST_CASE("infers the breach(TOO_LOW) according to PASSIVE_COOLING and send TO_E
   REQUIRE(Test_Controller_header == NULL);
   REQUIRE(Test_Controller_breachType == NULL);
   REQUIRE(strcmp(Test_Mail_recepient,"a.b@c.com")==0);
-  REQUIRE(strcmp(Test_Mail_MailContent,"The temperature is too high")==0);
+  REQUIRE(strcmp(Test_Mail_MailContent,"The temperature is to low")==0);
   REQUIRE(Test_Console_ConsoleContent == NULL);  
   REQUIRE(Func_CallCount_Controller == 0);
   REQUIRE(Func_CallCount_Mail == 1);
@@ -111,7 +111,7 @@ TEST_CASE("infers the breach(NORMAL) according to HI_ACTIVE_COOLING and send TO_
   REQUIRE(Test_Controller_header == NULL);
   REQUIRE(Test_Controller_breachType == NULL);
   REQUIRE(strcmp(Test_Mail_recepient,"a.b@c.com")==0);
-  REQUIRE(strcmp(Test_Mail_MailContent,"The temperature is too high")==0);
+  REQUIRE(strcmp(Test_Mail_MailContent,"The temperature is normal")==0);
   REQUIRE(Test_Console_ConsoleContent == NULL);  
   REQUIRE(Func_CallCount_Controller == 0);
   REQUIRE(Func_CallCount_Mail == 1);
