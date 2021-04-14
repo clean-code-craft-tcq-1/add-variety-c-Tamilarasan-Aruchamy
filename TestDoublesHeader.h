@@ -1,6 +1,6 @@
 
 extern unsigned short Test_Controller_header;
-int BreachType Test_Controller_breachType;
+extern int BreachType Test_Controller_breachType;
 extern int Func_CallCount_Controller;
 
 extern char* Test_Mail_recepient;
