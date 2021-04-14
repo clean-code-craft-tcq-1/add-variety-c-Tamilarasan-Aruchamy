@@ -1,10 +1,10 @@
 #include "typewise-alert.h"
-#include <stdio.h>
-
+#include "TestDoublesHeader.h"
+//#include <stdio.h>
 
 
 BreachType inferBreach(double value, BreachLimitConfig breachLimit);
-int checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
+BreachType checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
 
 
 BreachType inferBreach(double value, BreachLimitConfig breachLimit) 
@@ -20,33 +20,38 @@ BreachType inferBreach(double value, BreachLimitConfig breachLimit)
 
 
 
-int checkAndAlert(AlertTarget alertTargetInput, BatteryCharacter batteryChar, double temperatureInC) 
+BreachType checkAndAlert(AlertTarget alertTargetInput, BatteryCharacter batteryChar, double temperatureInC) 
 {
 BreachType breachTypeRet = inferBreach(temperatureInC,BreachLimitForCoolingType[batteryChar.coolingType]);
 AlertTarget alertTargetRet = alertTarget[alertTargetInput].sendTo(breachTypeRet);
-return ((breachTypeRet+1)*(alertTargetRet+1));
+return breachTypeRet;
 }
 
 
 
 AlertTarget sendToController(BreachType breachType) 
 {	
-  const unsigned short header = 0xfeed;
-  printf("%x : %x\n", header, breachType);
-  return TO_CONTROLLER;
+ // const unsigned short header = 0xfeed;
+  const unsigned short header = ReadHeader();
+ // printf("%x : %x\n", header, breachType);
+  Controller(header, breachType);
+  return 1;
 }
 
 
 AlertTarget sendToEmail(BreachType breachType) 
 {
-  const char* recepient = "a.b@c.com";
-  printf("To: %s\n", recepient);
-  printf("%s\n",&MailContent[breachType]);
-  return TO_EMAIL;
+ // const char* recepient = "a.b@c.com";
+  const char* recepient = ReadRecepient();
+ // printf("To: %s\n", recepient);
+ // printf("%s\n",&MailContent[breachType]);
+  Mail(recepient,&MailContent[breachType]);
+  return 1;
 }
 
 AlertTarget sendToConsole(BreachType breachType) 
 {	
-  printf("%s\n",&ConsoleContent[breachType]);
-  return TO_CONSOLE;
+  //printf("%s\n",&ConsoleContent[breachType]);
+  printf(&ConsoleContent[breachType]);
+  return 1;
 }
