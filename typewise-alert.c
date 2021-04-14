@@ -1,6 +1,5 @@
 #include "typewise-alert.h"
 #include "TestDoublesHeader.h"
-//#include <stdio.h>
 
 
 BreachType inferBreach(double value, BreachLimitConfig breachLimit);
@@ -19,7 +18,6 @@ BreachType inferBreach(double value, BreachLimitConfig breachLimit)
 }
 
 
-
 BreachType checkAndAlert(AlertTarget alertTargetInput, BatteryCharacter batteryChar, double temperatureInC) 
 {
 BreachType breachTypeRet = inferBreach(temperatureInC,BreachLimitForCoolingType[batteryChar.coolingType]);
@@ -28,12 +26,9 @@ return breachTypeRet;
 }
 
 
-
 AlertTarget sendToController(BreachType breachType) 
 {	
- // const unsigned short header = 0xfeed;
   const unsigned short header = ReadHeader();
- // printf("%x : %x\n", header, breachType);
   Controller(header, breachType);
   return TO_CONTROLLER;
 }
@@ -41,17 +36,13 @@ AlertTarget sendToController(BreachType breachType)
 
 AlertTarget sendToEmail(BreachType breachType) 
 {
- // const char* recepient = "a.b@c.com";
   char* recepient = ReadRecepient();
- // printf("To: %s\n", recepient);
- // printf("%s\n",&MailContent[breachType]);
   Mail(recepient,(char*)&MailContent[breachType]);
   return TO_EMAIL;
 }
 
 AlertTarget sendToConsole(BreachType breachType) 
 {	
-  //printf("%s\n",&ConsoleContent[breachType]);
   printf((char*)&ConsoleContent[breachType]);
   return TO_CONSOLE;
 }
