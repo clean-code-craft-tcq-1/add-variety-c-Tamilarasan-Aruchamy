@@ -1,29 +1,71 @@
-#define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
-
-#include "test/catch.hpp"
 #include "typewise-alert.h"
-#include "TestDoublesHeader.h"
 #include <stddef.h>
 
-extern BreachType checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
+unsigned short Test_Controller_header=NULL;
+int Test_Controller_breachType=NULL;
+int Func_CallCount_Controller=0;
+
+char* Test_Mail_recepient=NULL;
+char* Test_Mail_MailContent=NULL;
+int Func_CallCount_Mail=0;
+
+char* Test_Console_ConsoleContent=NULL;
+int Func_CallCount_printf=0;
 
 
-TEST_CASE("infers the breach(TOO_LOW) according to PASSIVE_COOLING and send to CONTROLLER") {
+
+int TestInterface_Reset()
+{
+	Test_Controller_header=0;
+	Test_Controller_breachType=0;
+	Func_CallCount_Controller=0;
+
+	Test_Mail_recepient=NULL;
+	Test_Mail_MailContent=NULL;
+	Func_CallCount_Mail=0;
+
+	Test_Console_ConsoleContent=NULL;
+	Func_CallCount_printf=0;
 	
-  BreachType BreachTypeActual;
-  BatteryCharacter batteryChar={PASSIVE_COOLING,"Bosch"};
-  
-  TestInterface_Reset();
-  BreachTypeActual=checkAndAlert(TO_CONTROLLER,batteryChar,-5);
-   
-  REQUIRE(BreachTypeActual == TOO_LOW); 
-  REQUIRE(Test_Controller_header == 0xfeed);
-  REQUIRE(Test_Controller_breachType == TOO_LOW);
-  REQUIRE(Test_Mail_recepient == NULL);
-  REQUIRE(Test_Mail_MailContent == NULL);
-  REQUIRE(Test_Console_ConsoleContent == NULL);  
-  REQUIRE(Func_CallCount_Controller == 1);
-  REQUIRE(Func_CallCount_Mail == 0);
-  REQUIRE(Func_CallCount_printf == 0);  
-  
+}
+
+
+
+int Controller(const unsigned short header,BreachType breachType)
+{
+	Test_Controller_header=header;
+	Test_Controller_breachType=breachType;
+	Func_CallCount_Controller++;
+	return 1;
+}
+
+int Mail(char* recepient,char* MailContent)
+{
+	Test_Mail_recepient=recepient;
+	Test_Mail_MailContent=MailContent;
+	Func_CallCount_Mail++;
+	return 1;
+}
+
+
+
+int printf(char* ConsoleContent)
+{
+	Test_Console_ConsoleContent=ConsoleContent;
+	Func_CallCount_printf++;
+	return 1;
+}
+
+
+char* ReadRecepient()
+{	
+	char* recepient="a.b@c.com";
+	return recepient;
+}
+
+
+unsigned short ReadHeader()
+{	
+	unsigned short header = 0xfeed;
+	return header;
 }
