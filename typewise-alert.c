@@ -1,57 +1,71 @@
 #include "typewise-alert.h"
-#include "TestDoublesHeader.h"
-//#include <stdio.h>
+#include <stddef.h>
+
+unsigned short Test_Controller_header=0;
+int Test_Controller_breachType=0;
+int Func_CallCount_Controller=0;
+
+char* Test_Mail_recepient=NULL;
+char* Test_Mail_MailContent=NULL;
+int Func_CallCount_Mail=0;
+
+char* Test_Console_ConsoleContent=NULL;
+int Func_CallCount_printf=0;
 
 
-BreachType inferBreach(double value, BreachLimitConfig breachLimit);
-BreachType checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
 
-
-BreachType inferBreach(double value, BreachLimitConfig breachLimit) 
+int TestInterface_Reset()
 {
-  if(value < breachLimit.lowerLimit) {
-    return TOO_LOW;
-  }
-  if(value > breachLimit.upperLimit) {
-    return TOO_HIGH;
-  }
-  return NORMAL;
+	Test_Controller_header=0;
+	Test_Controller_breachType=0;
+	Func_CallCount_Controller=0;
+
+	Test_Mail_recepient=NULL;
+	Test_Mail_MailContent=NULL;
+	Func_CallCount_Mail=0;
+
+	Test_Console_ConsoleContent=NULL;
+	Func_CallCount_printf=0;
+	
 }
 
 
 
-BreachType checkAndAlert(AlertTarget alertTargetInput, BatteryCharacter batteryChar, double temperatureInC) 
+int Controller(const unsigned short header,BreachType breachType)
 {
-BreachType breachTypeRet = inferBreach(temperatureInC,BreachLimitForCoolingType[batteryChar.coolingType]);
-AlertTarget alertTargetRet = alertTarget[alertTargetInput].sendTo(breachTypeRet);
-return breachTypeRet;
+	Test_Controller_header=header;
+	Test_Controller_breachType=breachType;
+	Func_CallCount_Controller++;
+	return 1;
+}
+
+int Mail(char* recepient,char* MailContent)
+{
+	Test_Mail_recepient=recepient;
+	Test_Mail_MailContent=MailContent;
+	Func_CallCount_Mail++;
+	return 1;
 }
 
 
 
-AlertTarget sendToController(BreachType breachType) 
+int printf(char* ConsoleContent)
+{
+	Test_Console_ConsoleContent=ConsoleContent;
+	Func_CallCount_printf++;
+	return 1;
+}
+
+
+char* ReadRecepient()
 {	
- // const unsigned short header = 0xfeed;
-  const unsigned short header = ReadHeader();
- // printf("%x : %x\n", header, breachType);
-  Controller(header, breachType);
-  return 1;
+	char* recepient="a.b@c.com";
+	return recepient;
 }
 
 
-AlertTarget sendToEmail(BreachType breachType) 
-{
- // const char* recepient = "a.b@c.com";
-  const char* recepient = ReadRecepient();
- // printf("To: %s\n", recepient);
- // printf("%s\n",&MailContent[breachType]);
-  Mail(recepient,&MailContent[breachType]);
-  return 1;
-}
-
-AlertTarget sendToConsole(BreachType breachType) 
+unsigned short ReadHeader()
 {	
-  //printf("%s\n",&ConsoleContent[breachType]);
-  printf(&ConsoleContent[breachType]);
-  return 1;
+	unsigned short header = 0xfeed;
+	return header;
 }
