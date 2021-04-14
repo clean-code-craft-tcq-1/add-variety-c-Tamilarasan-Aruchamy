@@ -45,13 +45,13 @@ AlertTarget sendToEmail(BreachType breachType)
   char* recepient = ReadRecepient();
  // printf("To: %s\n", recepient);
  // printf("%s\n",&MailContent[breachType]);
-  Mail(recepient,&MailContent[breachType]);
+  Mail(recepient,(char*)&MailContent[breachType]);
   return TO_EMAIL;
 }
 
 AlertTarget sendToConsole(BreachType breachType) 
 {	
   //printf("%s\n",&ConsoleContent[breachType]);
-  printf(&ConsoleContent[breachType]);
+  printf((char*)&ConsoleContent[breachType]);
   return TO_CONSOLE;
 }
