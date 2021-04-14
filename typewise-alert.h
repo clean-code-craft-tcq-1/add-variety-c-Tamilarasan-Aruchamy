@@ -53,12 +53,12 @@ static const AlertTargetConfig alertTarget[Max_AlertTarget]={	[TO_CONTROLLER]={&
 								[TO_EMAIL]={&sendToEmail},\
 								[TO_CONSOLE]={&sendToConsole}};
 
-static const ConsoleMgsConfig MailContent[Max_BreachType]={ /* Alert mail when temperature is abnormal */ \
+static ConsoleMgsConfig MailContent[Max_BreachType]={ /* Alert mail when temperature is abnormal */ \
 							{"The temperature is normal"},\
 							{"The temperature is to low"},\
 							{"The temperature is too high"}};
 
-static const ConsoleMgsConfig ConsoleContent[Max_BreachType]={ /* Alert through console when temperature is abnormal */ \
+static ConsoleMgsConfig ConsoleContent[Max_BreachType]={ /* Alert through console when temperature is abnormal */ \
 							{"The temperature is normal"},\
 							{"The temperature is to low"},\
 							{"The temperature is too high"}};
