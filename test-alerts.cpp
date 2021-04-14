@@ -5,7 +5,7 @@
 #include "TestDoublesHeader.h"
 #include <stddef.h>
 
-extern int checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
+extern BreachType checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
 
 
 TEST_CASE("infers the breach(TOO_LOW) according to PASSIVE_COOLING and send to CONTROLLER") {
