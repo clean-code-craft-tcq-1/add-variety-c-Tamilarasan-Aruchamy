@@ -29,10 +29,10 @@ TEST_CASE("infers the breach(TOO_LOW) according to PASSIVE_COOLING and send to C
 }
 
 
-TEST_CASE("infers the breach(NORMAL) according to PASSIVE_COOLING and send to CONTROLLER") {
+TEST_CASE("infers the breach(NORMAL) according to HI_ACTIVE_COOLING and send to CONTROLLER") {
 	
   BreachType BreachTypeActual;
-  BatteryCharacter batteryChar={PASSIVE_COOLING,"Bosch"};
+  BatteryCharacter batteryChar={HI_ACTIVE_COOLING,"Bosch"};
   
   TestInterface_Reset();
   BreachTypeActual=checkAndAlert(TO_CONTROLLER,batteryChar,30);
@@ -50,13 +50,13 @@ TEST_CASE("infers the breach(NORMAL) according to PASSIVE_COOLING and send to CO
 }
 
 
-TEST_CASE("infers the breach(TOO_HIGH) according to PASSIVE_COOLING and send to CONTROLLER") {
+TEST_CASE("infers the breach(TOO_HIGH) according to MED_ACTIVE_COOLING and send to CONTROLLER") {
 	
   BreachType BreachTypeActual;
-  BatteryCharacter batteryChar={PASSIVE_COOLING,"Bosch"};
+  BatteryCharacter batteryChar={MED_ACTIVE_COOLING,"Bosch"};
   
   TestInterface_Reset();
-  BreachTypeActual=checkAndAlert(TO_CONTROLLER,batteryChar,40);
+  BreachTypeActual=checkAndAlert(TO_CONTROLLER,batteryChar,45);
    
   REQUIRE(BreachTypeActual == TOO_HIGH); 
   REQUIRE(Test_Controller_header == 0xfeed);
@@ -67,6 +67,75 @@ TEST_CASE("infers the breach(TOO_HIGH) according to PASSIVE_COOLING and send to 
   REQUIRE(Func_CallCount_Controller == 1);
   REQUIRE(Func_CallCount_Mail == 0);
   REQUIRE(Func_CallCount_printf == 0);  
+  
+}
+
+
+
+
+
+
+
+
+TEST_CASE("infers the breach(TOO_LOW) according to PASSIVE_COOLING and send TO_EMAIL") {
+	
+  BreachType BreachTypeActual;
+  BatteryCharacter batteryChar={PASSIVE_COOLING,"Bosch"};
+  
+  TestInterface_Reset();
+  BreachTypeActual=checkAndAlert(TO_EMAIL,batteryChar,-5);
+   
+  REQUIRE(BreachTypeActual == TOO_LOW); 
+  REQUIRE(Test_Controller_header == NULL);
+  REQUIRE(Test_Controller_breachType == NULL);
+  REQUIRE(*Test_Mail_recepient == "a.b@c.com");
+  REQUIRE(*Test_Mail_MailContent == "The temperature is to low");
+  REQUIRE(Test_Console_ConsoleContent == NULL);  
+  REQUIRE(Func_CallCount_Controller == 0);
+  REQUIRE(Func_CallCount_Mail == 1);
+  REQUIRE(Func_CallCount_printf == 0);  
+  
+}
+
+
+TEST_CASE("infers the breach(NORMAL) according to HI_ACTIVE_COOLING and send TO_EMAIL") {
+	
+  BreachType BreachTypeActual;
+  BatteryCharacter batteryChar={HI_ACTIVE_COOLING,"Bosch"};
+  
+  TestInterface_Reset();
+  BreachTypeActual=checkAndAlert(TO_EMAIL,batteryChar,30);
+   
+  REQUIRE(BreachTypeActual == NORMAL); 
+  REQUIRE(Test_Controller_header == NULL);
+  REQUIRE(Test_Controller_breachType == NULL);
+  REQUIRE(*Test_Mail_recepient == "a.b@c.com");
+  REQUIRE(*Test_Mail_MailContent == "The temperature is normal");
+  REQUIRE(Test_Console_ConsoleContent == NULL);  
+  REQUIRE(Func_CallCount_Controller == 0);
+  REQUIRE(Func_CallCount_Mail == 1);
+  REQUIRE(Func_CallCount_printf == 0);  
+  
+}
+
+
+TEST_CASE("infers the breach(TOO_HIGH) according to MED_ACTIVE_COOLING and send TO_EMAIL") {
+	
+  BreachType BreachTypeActual;
+  BatteryCharacter batteryChar={MED_ACTIVE_COOLING,"Bosch"};
+  
+  TestInterface_Reset();
+  BreachTypeActual=checkAndAlert(TO_EMAIL,batteryChar,45);
+   
+  REQUIRE(BreachTypeActual == TOO_HIGH); 
+  REQUIRE(Test_Controller_header == NULL);
+  REQUIRE(Test_Controller_breachType == NULL);
+  REQUIRE(*Test_Mail_recepient == "a.b@c.com");
+  REQUIRE(*Test_Mail_MailContent == "The temperature is too high");
+  REQUIRE(Test_Console_ConsoleContent == NULL);  
+  REQUIRE(Func_CallCount_Controller == 0);
+  REQUIRE(Func_CallCount_Mail == 1);
+  REQUIRE(Func_CallCount_printf == 0);   
   
 }
 
