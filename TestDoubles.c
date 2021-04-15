@@ -16,16 +16,16 @@ int Func_CallCount_printf=0;
 
 int TestInterface_Reset()
 {
-	Test_Controller_header=0;
-	Test_Controller_breachType=0;
-	Func_CallCount_Controller=0;
+Test_Controller_header=NULL;
+Test_Controller_breachType=NULL;
+Func_CallCount_Controller=0;
 
-	Test_Mail_recepient=NULL;
-	Test_Mail_MailContent=NULL;
-	Func_CallCount_Mail=0;
+Test_Mail_recepient=NULL;
+Test_Mail_MailContent=NULL;
+Func_CallCount_Mail=0;
 
-	Test_Console_ConsoleContent=NULL;
-	Func_CallCount_printf=0;
+Test_Console_ConsoleContent=NULL;
+Func_CallCount_printf=0;
 	
 }
 
